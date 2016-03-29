@@ -14,7 +14,8 @@ class LionStatesTest(TestCase):
         lion = LionStates("сытый", "антилопа")
         lion.implementation_fsm()
         self.assertEqual("голодный", lion.state, "wrong state, should be 'голодный'!")
-        self.assertEqual("спать", lion.action, "wrong action, should be 'спать'!")
+        # self.assertEqual("спать", lion.action, "wrong action, should be 'спать'!")
+        self.assertEqual("съесть", lion.action, "wrong action, should be 'спать'!")
 
         lion = LionStates("сытый", "охотник")
         lion.implementation_fsm()
