@@ -2,6 +2,8 @@ class LionStates:
     def __init__(self, state):
         if state == "сытый" or state == "голодный":
             self.state = state
+        elif state == "СЫТЫЙ" or state == "ГОЛОДНЫЙ":
+            self.state = state.lower()
         else:
             raise ValueError("Неверное состояние !")
 
