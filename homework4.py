@@ -1,13 +1,10 @@
 class LionStates:
     def __init__(self, state):
-        if state == "сытый" or state == "голодный":
+        self.action = ""
+        if state.lower() == "сытый" or state.lower() == "голодный":
             self.state = state
-        elif state == "СЫТЫЙ" or state == "ГОЛОДНЫЙ":
-            self.state = state.lower()
         else:
             raise ValueError("Неверное состояние !")
-
-        self.action = ""
 
     def implementation_fsm(self, symbol):
         if symbol == "антилопа":
@@ -22,7 +19,6 @@ class LionStates:
             self.action = "спать"
             self.state = "голодный"
             print("Действие: " + self.action.upper() + ", текущее состояние: " + self.state.upper())
-
         elif self.state == "голодный":
             self.action = "съесть"
             self.state = "сытый"
@@ -33,7 +29,6 @@ class LionStates:
             self.action = "убежать"
             self.state = "голодный"
             print("Действие: " + self.action.upper() + ", текущее состояние: " + self.state.upper())
-
         elif self.state == "голодный":
             self.action = "убежать"
             self.state = "голодный"
@@ -44,7 +39,6 @@ class LionStates:
             self.action = "смотреть"
             self.state = "голодный"
             print("Действие: " + self.action.upper() + ", текущее состояние: " + self.state.upper())
-
         elif self.state == "голодный":
             self.action = "спать"
             self.state = "голодный"
