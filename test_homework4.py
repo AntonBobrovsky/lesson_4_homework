@@ -4,41 +4,61 @@ import unittest
 
 
 class LionStatesTest(TestCase):
-    # Тест на перехват ошибки, при передаче конструктору некорректного значения
     def test_args(self):
         self.assertRaises(ValueError, LionStates, "asds2gda")
         self.assertRaises(ValueError, LionStates, "блаблабла")
-       
-    # Тесты на корректность поведения льва в зависимости от входных данных
-    def test_LionStates(self):
 
-        # проверки, если лев "родился" сытым
+    def test_constructor_hungry(self):
+        lion = LionStates("голодный")
+        self.assertEqual("голодный", lion.state)
+
+    def test_constructor_full(self):
+        lion = LionStates("сытый")
+        self.assertEqual("сытый", lion.state)
+
+    def test_incorrect_symbol_full(self):
+        lion = LionStates("сытый")
+        self.assertRaises(ValueError, lion.implementation_fsm, "Leva")
+
+    def test_incorrect_symbol_hungry(self):
+        lion = LionStates("голодный")
+        self.assertRaises(ValueError, lion.implementation_fsm, "Дом")
+
+    def test_antelope_full(self):
         lion = LionStates("сытый")
         lion.implementation_fsm("антилопа")
-        self.assertEqual("голодный", lion.state, "wrong state, should be 'голодный'!")
-        self.assertEqual("спать", lion.action, "wrong action, should be 'спать'!")
-        lion = LionStates("сытый")
-        lion.implementation_fsm("охотник")
-        self.assertEqual("голодный", lion.state, "wrong state, should be 'голодный'!")
-        self.assertEqual("убежать", lion.action, "wrong action, should be 'убежать'!")
-        lion = LionStates("сытый")
-        lion.implementation_fsm("дерево")
-        self.assertEqual("голодный", lion.state, "wrong state, should be 'голодный'!")
-        self.assertEqual("смотреть", lion.action, "wrong action, should be 'смотреть'!")
+        self.assertEqual("голодный", lion.state)
+        self.assertEqual("спать", lion.action)
 
-        # проверки, если лев "родился" голодным
+    def test_antelope_hungry(self):
         lion = LionStates("голодный")
         lion.implementation_fsm("антилопа")
-        self.assertEqual("сытый", lion.state, "wrong state, should be 'сытый'!")
-        self.assertEqual("съесть", lion.action, "wrong action, should be 'съесть'!")
+        self.assertEqual("сытый", lion.state)
+        self.assertEqual("съесть", lion.action)
+
+    def test_hunter_full(self):
+        lion = LionStates("сытый")
+        lion.implementation_fsm("охотник")
+        self.assertEqual("голодный", lion.state)
+        self.assertEqual("убежать", lion.action)
+
+    def test_hunter_hungry(self):
         lion = LionStates("голодный")
         lion.implementation_fsm("охотник")
-        self.assertEqual("голодный", lion.state, "wrong state, should be 'голодный'!")
-        self.assertEqual("убежать", lion.action, "wrong action, should be 'убежать'!")
+        self.assertEqual("голодный", lion.state)
+        self.assertEqual("убежать", lion.action)
+
+    def test_tree_full(self):
+        lion = LionStates("сытый")
+        lion.implementation_fsm("дерево")
+        self.assertEqual("голодный", lion.state)
+        self.assertEqual("смотреть", lion.action)
+
+    def test_tree_hungry(self):
         lion = LionStates("голодный")
         lion.implementation_fsm("дерево")
-        self.assertEqual("голодный", lion.state, "wrong state, should be 'голодный'!")
-        self.assertEqual("спать", lion.action, "wrong action, should be 'спать'!")
+        self.assertEqual("голодный", lion.state)
+        self.assertEqual("спать", lion.action)
 
 if __name__ == '__main__':
     unittest.main()
